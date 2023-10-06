@@ -1,5 +1,7 @@
 ﻿#pragma once
-
+#include "Subject.h"
+#include "Lecture.h"
+#include "Task.h"
 namespace StudyStack {
 
     using namespace System;
@@ -24,6 +26,9 @@ namespace StudyStack {
         System::Windows::Forms::Button^ closeButton;
         System::Windows::Forms::Button^ minimizeButton;
         System::Windows::Forms::Button^ maximizeButton;
+
+
+
 
         Point lastPoint; //for mouse move
 

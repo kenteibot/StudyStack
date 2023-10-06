@@ -121,14 +121,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Lecture.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="Subject.cpp" />
+    <ClCompile Include="Task.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Lecture.h" />
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Subject.h" />
+    <ClInclude Include="Task.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">

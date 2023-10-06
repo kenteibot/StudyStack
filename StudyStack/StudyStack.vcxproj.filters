@@ -21,12 +21,24 @@
     <ClCompile Include="Subject.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Lecture.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Task.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainForm.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Subject.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Lecture.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Task.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

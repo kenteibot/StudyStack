@@ -7,7 +7,7 @@ ref class Subject //study subjects
 private:
     String^ name;
     String^ description;
-    String^ lecturesFolder;
+    String^ folderPath;
 
 public:
     property String^ Name
@@ -22,11 +22,10 @@ public:
         void set(String^ value) { description = value; }
     }
 
-    property String^ LecturesFolder
+    property String^ FolderPath
     {
-        String^ get() { return lecturesFolder; }
-        void set(String^ value) { lecturesFolder = value; }
+        String^ get() { return folderPath; }
     }
 
-    Subject(String^ name, String^ description, String^ lecturesFolder);
+    Subject(String^ name, String^ description);
 };

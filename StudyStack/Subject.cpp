@@ -1,8 +1,8 @@
 #include "Subject.h"
 
-Subject::Subject(String^ name, String^ description, String^ lecturesFolder)
+Subject::Subject(String^ name, String^ description)
 {
-    Name = name;
-    Description = description;
-    LecturesFolder = lecturesFolder;
+    this->name = name;
+    this->description = description;
+    this->folderPath = "";
 }

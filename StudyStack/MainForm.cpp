@@ -1,4 +1,5 @@
 #include "MainForm.h"
+#include "Subject.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
