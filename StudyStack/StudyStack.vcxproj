@@ -79,6 +79,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -121,12 +122,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FolderManager.cpp" />
     <ClCompile Include="Lecture.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Task.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FolderManager.h" />
     <ClInclude Include="Lecture.h" />
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
