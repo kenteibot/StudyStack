@@ -28,4 +28,6 @@ public:
     }
 
     Subject(String^ name, String^ description);
+
+    virtual String^ ToString() override;
 };

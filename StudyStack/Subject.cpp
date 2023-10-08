@@ -6,3 +6,8 @@ Subject::Subject(String^ name, String^ description)
     this->description = description;
     this->folderPath = "";
 }
+
+String^ Subject::ToString()
+{
+    return this->name;
+}

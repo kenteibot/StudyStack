@@ -3,6 +3,8 @@
 #include "Lecture.h"
 #include "Task.h"
 #include "FolderManager.h"
+#include "SubjectInputForm.h"
+
 namespace StudyStack {
 
     using namespace System;
@@ -19,7 +21,18 @@ namespace StudyStack {
             SetRoundedForm();
         }
 
+    protected:
+        ~MainForm()
+        {
+            if (components)
+            {
+                delete components;
+            }
+        }
+
     private:
+        System::ComponentModel::Container^ components;
+
         System::Windows::Forms::Panel^ leftPanel;
         System::Windows::Forms::Panel^ assignmentsPanel;
         System::Windows::Forms::Panel^ lecturesPanel;
@@ -27,6 +40,9 @@ namespace StudyStack {
         System::Windows::Forms::Button^ closeButton;
         System::Windows::Forms::Button^ minimizeButton;
         System::Windows::Forms::Button^ maximizeButton;
+        System::Windows::Forms::ListBox^ subjectsList;
+        System::Windows::Forms::Button^ addSubjectButton;
+
 
         Point lastPoint; //for mouse move
 
@@ -54,9 +70,12 @@ namespace StudyStack {
             this->maximizeButton = (gcnew System::Windows::Forms::Button());
             this->closeButton = (gcnew System::Windows::Forms::Button());
             this->leftPanel = (gcnew System::Windows::Forms::Panel());
+            this->addSubjectButton = (gcnew System::Windows::Forms::Button());
+            this->subjectsList = (gcnew System::Windows::Forms::ListBox());
             this->assignmentsPanel = (gcnew System::Windows::Forms::Panel());
             this->lecturesPanel = (gcnew System::Windows::Forms::Panel());
             this->titleBar->SuspendLayout();
+            this->leftPanel->SuspendLayout();
             this->SuspendLayout();
             // 
             // titleBar
@@ -124,12 +143,37 @@ namespace StudyStack {
             // 
             // leftPanel
             // 
-            this->leftPanel->BackColor = System::Drawing::SystemColors::ActiveCaption;
+            this->leftPanel->BackColor = System::Drawing::SystemColors::ButtonHighlight;
+            this->leftPanel->Controls->Add(this->addSubjectButton);
+            this->leftPanel->Controls->Add(this->subjectsList);
             this->leftPanel->Dock = System::Windows::Forms::DockStyle::Left;
             this->leftPanel->Location = System::Drawing::Point(0, 90);
             this->leftPanel->Name = L"leftPanel";
             this->leftPanel->Size = System::Drawing::Size(182, 453);
             this->leftPanel->TabIndex = 1;
+            // 
+            // addSubjectButton
+            // 
+            this->addSubjectButton->Location = System::Drawing::Point(12, 396);
+            this->addSubjectButton->Name = L"addSubjectButton";
+            this->addSubjectButton->Size = System::Drawing::Size(150, 57);
+            this->addSubjectButton->TabIndex = 1;
+            this->addSubjectButton->Text = L"Add";
+            this->addSubjectButton->UseVisualStyleBackColor = true;
+            this->addSubjectButton->Click += gcnew System::EventHandler(this, &MainForm::addSubjectButton_Click);
+            // 
+            // subjectsList
+            // 
+            this->subjectsList->BorderStyle = System::Windows::Forms::BorderStyle::None;
+            this->subjectsList->Dock = System::Windows::Forms::DockStyle::Top;
+            this->subjectsList->Font = (gcnew System::Drawing::Font(L"PT Sans", 12, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+                System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+            this->subjectsList->FormattingEnabled = true;
+            this->subjectsList->ItemHeight = 26;
+            this->subjectsList->Location = System::Drawing::Point(0, 0);
+            this->subjectsList->Name = L"subjectsList";
+            this->subjectsList->Size = System::Drawing::Size(182, 390);
+            this->subjectsList->TabIndex = 0;
             // 
             // assignmentsPanel
             // 
@@ -162,6 +206,7 @@ namespace StudyStack {
             this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);
             this->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MainForm::MainForm_Paint);
             this->titleBar->ResumeLayout(false);
+            this->leftPanel->ResumeLayout(false);
             this->ResumeLayout(false);
 
         }
@@ -216,5 +261,13 @@ namespace StudyStack {
     {
         //pass
     }
-    };
+    private: System::Void addSubjectButton_Click(System::Object^ sender, System::EventArgs^ e)
+    {
+        SubjectInputForm^ subjectInputForm = gcnew SubjectInputForm();
+        subjectInputForm->ShowDialog();
+        
+        Subject^ newSubject = subjectInputForm->GetSubject();
+        subjectsList->Items->Add(newSubject);
+    }
+};
 }

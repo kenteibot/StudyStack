@@ -126,6 +126,7 @@
     <ClCompile Include="Lecture.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="Subject.cpp" />
+    <ClCompile Include="SubjectInputForm.cpp" />
     <ClCompile Include="Task.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -135,11 +136,17 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Subject.h" />
+    <ClInclude Include="SubjectInputForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Task.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubjectInputForm.resx">
+      <DependentUpon>SubjectInputForm.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
