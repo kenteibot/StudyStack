@@ -4,6 +4,7 @@
 #include "Task.h"
 #include "FolderManager.h"
 #include "SubjectInputForm.h"
+#include "StudyManager.h"
 
 namespace StudyStack {
 
@@ -42,27 +43,32 @@ namespace StudyStack {
         System::Windows::Forms::Button^ maximizeButton;
         System::Windows::Forms::ListBox^ subjectsList;
         System::Windows::Forms::Button^ addSubjectButton;
+    private: System::Windows::Forms::ListView^ lecturesListView;
+    private: System::Windows::Forms::Button^ addLectureButton;
+
+    //private: StudyManager^ studyManager;
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         Point lastPoint; //for mouse move
 
-        void SetRoundedForm()
-        {
-            int radius = 20;
-            this->Region = gcnew System::Drawing::Region(GetRoundedPath(this->ClientRectangle, radius));
-        }
-
-        System::Drawing::Drawing2D::GraphicsPath^ GetRoundedPath(System::Drawing::Rectangle rect, int radius)
-        {
-            System::Drawing::Drawing2D::GraphicsPath^ path = gcnew System::Drawing::Drawing2D::GraphicsPath();
-            path->AddArc(rect.X, rect.Y, radius * 2, radius * 2, 180, 90);
-            path->AddArc(rect.Right - radius * 2, rect.Y, radius * 2, radius * 2, 270, 90);
-            path->AddArc(rect.Right - radius * 2, rect.Bottom - radius * 2, radius * 2, radius * 2, 0, 90);
-            path->AddArc(rect.X, rect.Bottom - radius * 2, radius * 2, radius * 2, 90, 90);
-            path->CloseFigure();
-            return path;
-        }
-
+        
+#pragma region Windows Form Designer generated code
+        /// <summary>
+        /// Требуемый метод для поддержки конструктора — не изменяйте 
+        /// содержимое этого метода с помощью редактора кода.
+        /// </summary>
         void InitializeComponent(void)
         {
             this->titleBar = (gcnew System::Windows::Forms::Panel());
@@ -74,13 +80,17 @@ namespace StudyStack {
             this->subjectsList = (gcnew System::Windows::Forms::ListBox());
             this->assignmentsPanel = (gcnew System::Windows::Forms::Panel());
             this->lecturesPanel = (gcnew System::Windows::Forms::Panel());
+            this->lecturesListView = (gcnew System::Windows::Forms::ListView());
+            this->addLectureButton = (gcnew System::Windows::Forms::Button());
             this->titleBar->SuspendLayout();
             this->leftPanel->SuspendLayout();
+            this->lecturesPanel->SuspendLayout();
             this->SuspendLayout();
             // 
             // titleBar
             // 
             this->titleBar->BackColor = System::Drawing::Color::Gray;
+            this->titleBar->Controls->Add(this->addLectureButton);
             this->titleBar->Controls->Add(this->minimizeButton);
             this->titleBar->Controls->Add(this->maximizeButton);
             this->titleBar->Controls->Add(this->closeButton);
@@ -154,11 +164,14 @@ namespace StudyStack {
             // 
             // addSubjectButton
             // 
-            this->addSubjectButton->Location = System::Drawing::Point(12, 396);
+            this->addSubjectButton->Dock = System::Windows::Forms::DockStyle::Fill;
+            this->addSubjectButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+                static_cast<System::Byte>(204)));
+            this->addSubjectButton->Location = System::Drawing::Point(0, 375);
             this->addSubjectButton->Name = L"addSubjectButton";
-            this->addSubjectButton->Size = System::Drawing::Size(150, 57);
+            this->addSubjectButton->Size = System::Drawing::Size(182, 78);
             this->addSubjectButton->TabIndex = 1;
-            this->addSubjectButton->Text = L"Add";
+            this->addSubjectButton->Text = L"Создать предмет";
             this->addSubjectButton->UseVisualStyleBackColor = true;
             this->addSubjectButton->Click += gcnew System::EventHandler(this, &MainForm::addSubjectButton_Click);
             // 
@@ -166,14 +179,15 @@ namespace StudyStack {
             // 
             this->subjectsList->BorderStyle = System::Windows::Forms::BorderStyle::None;
             this->subjectsList->Dock = System::Windows::Forms::DockStyle::Top;
-            this->subjectsList->Font = (gcnew System::Drawing::Font(L"PT Sans", 12, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
-                System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+            this->subjectsList->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+                static_cast<System::Byte>(204)));
             this->subjectsList->FormattingEnabled = true;
-            this->subjectsList->ItemHeight = 26;
+            this->subjectsList->ItemHeight = 25;
             this->subjectsList->Location = System::Drawing::Point(0, 0);
             this->subjectsList->Name = L"subjectsList";
-            this->subjectsList->Size = System::Drawing::Size(182, 390);
+            this->subjectsList->Size = System::Drawing::Size(182, 375);
             this->subjectsList->TabIndex = 0;
+            this->subjectsList->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::subjectsList_SelectedIndexChanged);
             // 
             // assignmentsPanel
             // 
@@ -187,11 +201,35 @@ namespace StudyStack {
             // lecturesPanel
             // 
             this->lecturesPanel->BackColor = System::Drawing::Color::Chocolate;
+            this->lecturesPanel->Controls->Add(this->lecturesListView);
             this->lecturesPanel->Dock = System::Windows::Forms::DockStyle::Bottom;
             this->lecturesPanel->Location = System::Drawing::Point(182, 323);
             this->lecturesPanel->Name = L"lecturesPanel";
             this->lecturesPanel->Size = System::Drawing::Size(686, 220);
             this->lecturesPanel->TabIndex = 3;
+            // 
+            // lecturesListView
+            // 
+            this->lecturesListView->Dock = System::Windows::Forms::DockStyle::Fill;
+            this->lecturesListView->HideSelection = false;
+            this->lecturesListView->Location = System::Drawing::Point(0, 0);
+            this->lecturesListView->Name = L"lecturesListView";
+            this->lecturesListView->Size = System::Drawing::Size(686, 220);
+            this->lecturesListView->TabIndex = 0;
+            this->lecturesListView->UseCompatibleStateImageBehavior = false;
+            this->lecturesListView->View = System::Windows::Forms::View::Tile;
+            // 
+            // addLectureButton
+            // 
+            this->addLectureButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+                static_cast<System::Byte>(204)));
+            this->addLectureButton->Location = System::Drawing::Point(12, 24);
+            this->addLectureButton->Name = L"addLectureButton";
+            this->addLectureButton->Size = System::Drawing::Size(111, 45);
+            this->addLectureButton->TabIndex = 4;
+            this->addLectureButton->Text = L"Создать лекцию";
+            this->addLectureButton->UseVisualStyleBackColor = true;
+            this->addLectureButton->Click += gcnew System::EventHandler(this, &MainForm::addLectureButton_Click);
             // 
             // MainForm
             // 
@@ -207,9 +245,50 @@ namespace StudyStack {
             this->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MainForm::MainForm_Paint);
             this->titleBar->ResumeLayout(false);
             this->leftPanel->ResumeLayout(false);
+            this->lecturesPanel->ResumeLayout(false);
             this->ResumeLayout(false);
 
         }
+#pragma endregion
+
+
+    private: void SetRoundedForm()
+    {
+        int radius = 20;
+        this->Region = gcnew System::Drawing::Region(GetRoundedPath(this->ClientRectangle, radius));
+    }
+
+    private: System::Drawing::Drawing2D::GraphicsPath^ GetRoundedPath(System::Drawing::Rectangle rect, int radius)
+    {
+        System::Drawing::Drawing2D::GraphicsPath^ path = gcnew System::Drawing::Drawing2D::GraphicsPath();
+        path->AddArc(rect.X, rect.Y, radius * 2, radius * 2, 180, 90);
+        path->AddArc(rect.Right - radius * 2, rect.Y, radius * 2, radius * 2, 270, 90);
+        path->AddArc(rect.Right - radius * 2, rect.Bottom - radius * 2, radius * 2, radius * 2, 0, 90);
+        path->AddArc(rect.X, rect.Bottom - radius * 2, radius * 2, radius * 2, 90, 90);
+        path->CloseFigure();
+        return path;
+    }
+
+    private: void UpdateLecturesListView()
+    {
+        //lecturesListView->Items->Clear();
+        //Subject^ activeSubject = dynamic_cast<Subject^>(subjectsList->SelectedItem);
+        //List<Lecture^>^ lectures = StudyManager::GetLectures(activeSubject);
+        //for each (Lecture^ lecture in lectures)
+        //{
+        //    lecturesListView->Items->Add(lecture);
+        //}
+    }
+
+    private: void UpdateSubjectsList()
+    {
+        subjectsList->Items->Clear();
+        List<Subject^>^ subjects = StudyManager::GetSubjects();
+        for each (Subject ^ subject in subjects)
+        {
+            subjectsList->Items->Add(subject);
+        }
+    }
 
     private: System::Void titleBar_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
     {
@@ -265,9 +344,15 @@ namespace StudyStack {
     {
         SubjectInputForm^ subjectInputForm = gcnew SubjectInputForm();
         subjectInputForm->ShowDialog();
+        UpdateSubjectsList();
+    }
+    private: System::Void subjectsList_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) 
+    {
+        UpdateLecturesListView();
+    }
+    private: System::Void addLectureButton_Click(System::Object^ sender, System::EventArgs^ e) 
+    {
         
-        Subject^ newSubject = subjectInputForm->GetSubject();
-        subjectsList->Items->Add(newSubject);
     }
 };
 }

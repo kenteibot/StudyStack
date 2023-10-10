@@ -7,3 +7,8 @@ Lecture::Lecture(String^ name, Subject^ owner)
 	this->owner = owner;
 	this->creationDate = DateTime::Now;
 }
+
+String^ Lecture::ToString()
+{
+	return this->name;
+}

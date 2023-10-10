@@ -24,11 +24,18 @@ public:
         String^ get() { return folderPath; }
     }
 
+    property Subject^ LectureOwner
+    {
+        Subject^ get() { return owner; }
+    }
+
     property DateTime CreationDate
     {
         DateTime get() { return creationDate; }
     }
 
     Lecture(String^ name, Subject^ owner);
+
+    virtual String^ ToString() override;
 };
 

@@ -2,6 +2,7 @@
 
 #include "Subject.h"
 #include "FolderManager.h"
+#include "StudyManager.h"
 
 namespace StudyStack {
 
@@ -12,31 +13,21 @@ namespace StudyStack {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Сводка для SubjectInputForm
-	/// </summary>
 	public ref class SubjectInputForm : public System::Windows::Forms::Form
 	{
 	public:
 		SubjectInputForm(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: добавьте код конструктора
-			//
 		}
 
-
-		Subject^ GetSubject()
+		/*property Subject^ NewSubject
 		{
-			return this->newSubject;
-		}
+			Subject^ get() { return newSubject; }
+		}*/
 
 
 	protected:
-		/// <summary>
-		/// Освободить все используемые ресурсы.
-		/// </summary>
 		~SubjectInputForm()
 		{
 			if (components)
@@ -44,31 +35,17 @@ namespace StudyStack {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Label^ subjectNameLabel;
-	private: System::Windows::Forms::TextBox^ subjectNameTextBox;
-	private: System::Windows::Forms::Label^ subjectDescriptionLabel;
-	private: System::Windows::Forms::TextBox^ subjectDescriptionTextBox;
-	private: Subject^ newSubject;
-	protected:
+	private: 
+		System::Windows::Forms::Label^ subjectNameLabel;
+		System::Windows::Forms::TextBox^ subjectNameTextBox;
+		System::Windows::Forms::Label^ subjectDescriptionLabel;
+		System::Windows::Forms::TextBox^ subjectDescriptionTextBox;
+		System::Windows::Forms::Button^ okButton;
 
-	protected:
-
-
-
-
-
-
-
-	private: System::Windows::Forms::Button^ okButton;
-	protected:
-
-
-	protected:
+		//Subject^ newSubject;
+		//StudyManager^ studyManager = gcnew StudyManager();
 
 	private:
-		/// <summary>
-		/// Обязательная переменная конструктора.
-		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
@@ -168,7 +145,7 @@ namespace StudyStack {
 		
 		FolderManager::CreateFolder(folderName);
 
-		this->newSubject = subject;
+		StudyManager::AddSubject(subject);
 
 		this->Close();
 	}
